@@ -1,4 +1,3 @@
-
 import pymysql
 from config import MYSQL_CONFIG
 
@@ -11,6 +10,7 @@ def connect_mysql():
             database=MYSQL_CONFIG['database'],
             cursorclass=pymysql.cursors.DictCursor
         )
+        print("Успешное подключение к MySQL")
         return connection
     except pymysql.MySQLError as e:
         print(f"Ошибка подключения к MySQL: {e}")

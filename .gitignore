@@ -2,8 +2,9 @@
 .venv/
 venv/
 
-# PyCharm
+# IDE
 .idea/
+.vscode/
 
 # Python кеш
 __pycache__/
@@ -13,3 +14,6 @@ __pycache__/
 
 # Логи
 *.log
+
+# Файл с переменными окружения
+.env

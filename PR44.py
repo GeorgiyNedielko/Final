@@ -46,7 +46,7 @@ def search_by_title(cursor, mongo_db):
         duration = time.time() - start_time
 
         try:
-            if mongo_db:
+            if mongo_db is not None:
                 log_query(mongo_db, "title", {"keyword": keyword}, len(results), duration)
         except Exception as e:
             print(f"Ошибка логирования запроса в MongoDB: {e}")
@@ -119,8 +119,9 @@ def search_by_genre_and_year(cursor, mongo_db):
         duration = time.time() - start_time
 
         try:
-            if mongo_db:
-                log_query(mongo_db, "genre_year", {"genre": genre, "year_from": year_from, "year_to": year_to}, len(results), duration)
+            if mongo_db is not None:
+                log_query(mongo_db, "genre_year", {"genre": genre, "year_from": year_from, "year_to": year_to},
+                          len(results), duration)
         except Exception as e:
             print(f"Ошибка логирования запроса в MongoDB: {e}")
 
@@ -230,7 +231,7 @@ def search_by_rating(cursor, mongo_db):
         duration = time.time() - start_time
 
         try:
-            if mongo_db:
+            if mongo_db is not None:
                 log_query(mongo_db, "rating", {"rating": rating}, len(results), duration)
         except Exception as e:
             print(f"Ошибка логирования запроса в MongoDB: {e}")
@@ -255,7 +256,8 @@ def main():
     mongo_db = connect_mongo()
     if mongo_db is None:
         print("Не удалось подключиться к MongoDB. Логирование не будет работать.")
-        mongo_db = None  # Явно указываем None, чтобы избежать ошибок
+        # Явно указываем None, чтобы избежать ошибок при проверках
+        mongo_db = None
 
     try:
         with mysql_conn:
@@ -303,6 +305,8 @@ def main():
                         print("Некорректный выбор. Попробуйте снова.")
     except Exception as e:
         print(f"Произошла ошибка в работе программы: {e}")
+
+
 
 
 if __name__ == "__main__":
